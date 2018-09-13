@@ -38,22 +38,25 @@ public class SolveMaze {
             while (!maze.isFinished()) {
                 maze.turnLeft(); // orient left
                 if (!maze.canMove()) { // check if can go left
-                    maze.turnRight();
-                    maze.turnRight();  // orient right
+                    maze.turnRight(); // orient straight
+                    if (!maze.canMove()) { // check if can go straight
+                        maze.turnRight(); // orient right
+                        if (!maze.canMove()) { // check if can go right
+                            maze.turnRight(); // orient backwards
+                            maze.move();
+                        } else {
+                            maze.move();
+                        }
+                    } else {
+                        maze.move();
+                    }
+
                 } else {
-                    maze.move();
-                }
-                if (!maze.canMove()) { // check if can go right
-                    maze.turnLeft(); // orient straight
-                } else {
-                    maze.move();
-                }
-                if (!maze.canMove()) { // check if can go straight
-                    maze.turnLeft();
-                    maze.turnLeft(); // orient backwards
                     maze.move();
                 }
             }
+
+
 
         }
 
